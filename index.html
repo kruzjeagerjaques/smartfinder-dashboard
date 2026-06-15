@@ -7,638 +7,791 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --navy: #071a44;
-      --navy2: #0d2f7a;
-      --blue: #2563eb;
-      --cyan: #22d3ee;
-      --green: #22c55e;
-      --orange: #f59e0b;
-      --red: #ef4444;
-      --bg: #eaf0f8;
-      --card: rgba(255,255,255,0.82);
-      --line: rgba(15, 35, 80, 0.10);
-      --text: #081735;
-      --muted: #64748b;
+      --bg: #f4f1e9;
+      --card: #ffffff;
+      --dark: #202020;
+      --text: #252525;
+      --muted: #8a8a8a;
+      --soft: #f5f5f5;
+      --line: #e8e5dd;
+      --navy: #0d2b66;
+      --green: #38b76b;
+      --yellow: #f2bd42;
+      --red: #e84d4d;
+      --orange: #f08c36;
+      --shadow: 0 18px 45px rgba(30, 30, 30, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
     }
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.18), transparent 35%),
-        radial-gradient(circle at top right, rgba(34, 211, 238, 0.14), transparent 30%),
-        linear-gradient(180deg, #f3f7fd 0%, #e7edf7 100%);
+      background: var(--bg);
       color: var(--text);
-      font-family: "Rajdhani", sans-serif;
-      padding: 28px 16px 40px;
+      padding: 26px;
     }
 
-    .container {
+    .dashboard {
       max-width: 1180px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
     }
 
-    .hero {
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .device-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      min-height: 650px;
+    }
+
+    .hero-image {
+      height: 280px;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.64)),
+        radial-gradient(circle at top left, rgba(13,43,102,0.7), transparent 45%),
+        linear-gradient(135deg, #0d2b66, #1d3f8f);
       position: relative;
       overflow: hidden;
-      background:
-        linear-gradient(135deg, rgba(7, 26, 68, 1), rgba(13, 47, 122, 1)),
-        linear-gradient(90deg, rgba(34, 211, 238, 0.2), transparent);
-      border-radius: 30px;
-      padding: 30px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       color: white;
-      box-shadow: 0 22px 60px rgba(7, 26, 68, 0.22);
-      margin-bottom: 18px;
-      border: 1px solid rgba(255,255,255,0.14);
     }
 
-    .hero::before {
+    .hero-image::before {
       content: "";
       position: absolute;
-      inset: -2px;
+      inset: 0;
       background:
-        linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
-      pointer-events: none;
+        linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.28;
     }
 
-    .hero::after {
+    .hero-image::after {
       content: "";
       position: absolute;
-      width: 320px;
-      height: 320px;
+      width: 260px;
+      height: 260px;
       border-radius: 50%;
-      right: -120px;
-      top: -120px;
-      background: radial-gradient(circle, rgba(34, 211, 238, 0.26), transparent 65%);
+      top: -90px;
+      right: -80px;
+      background: rgba(255,255,255,0.12);
+      filter: blur(1px);
     }
 
     .hero-content {
       position: relative;
       z-index: 2;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+    .hero-title {
+      font-size: 1.55rem;
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.6px;
     }
 
-    .logo {
-      width: 62px;
-      height: 62px;
-      border-radius: 20px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, rgba(255,255,255,0.18), rgba(255,255,255,0.05));
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
-      font-family: "Orbitron", sans-serif;
-      font-weight: 900;
-      font-size: 28px;
-      letter-spacing: 1px;
-    }
-
-    .brand h1 {
-      font-family: "Orbitron", sans-serif;
-      font-size: 2.25rem;
-      line-height: 1;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-
-    .brand p {
-      color: rgba(255,255,255,0.78);
-      font-size: 1.05rem;
+    .hero-subtitle {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.76);
       font-weight: 500;
     }
 
-    .live-badge {
+    .status-chip {
+      position: absolute;
+      right: 20px;
+      bottom: 24px;
+      z-index: 3;
+      padding: 8px 22px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.24);
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.16);
-      backdrop-filter: blur(10px);
-      font-family: "Orbitron", sans-serif;
-      font-size: 0.78rem;
-      letter-spacing: 1px;
-      font-weight: 800;
-      text-transform: uppercase;
+      gap: 8px;
     }
 
-    .dot {
-      width: 11px;
-      height: 11px;
+    .chip-dot {
+      width: 8px;
+      height: 8px;
       border-radius: 50%;
       background: var(--red);
-      box-shadow: 0 0 18px rgba(239,68,68,0.8);
     }
 
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1.35fr 0.95fr;
-      gap: 18px;
-      margin-bottom: 18px;
-    }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      padding: 22px;
-      box-shadow: 0 16px 34px rgba(8, 23, 53, 0.07);
-      backdrop-filter: blur(14px);
-    }
-
-    .label {
-      font-family: "Orbitron", sans-serif;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      color: #52617a;
-      font-size: 0.72rem;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .status-card {
-      min-height: 100%;
-    }
-
-    .status-head {
+    .device-info {
+      margin-top: 18px;
       display: flex;
-      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .info-line {
+      display: flex;
       justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 16px;
+      gap: 16px;
+      padding: 18px 8px;
+      border-bottom: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 500;
     }
 
-    .status-big {
-      font-family: "Orbitron", sans-serif;
-      font-weight: 900;
-      font-size: 4rem;
-      line-height: 0.95;
-      letter-spacing: 2px;
-      color: var(--navy);
-      text-shadow: 0 8px 22px rgba(13,47,122,0.10);
+    .info-line strong {
+      color: var(--text);
+      font-weight: 700;
+      text-align: right;
     }
 
-    .status-pill {
-      padding: 10px 15px;
-      border-radius: 999px;
-      font-family: "Orbitron", sans-serif;
-      font-size: 0.72rem;
-      font-weight: 900;
-      letter-spacing: 1px;
-      background: #e8eef8;
-      color: var(--navy2);
-      text-transform: uppercase;
-      white-space: nowrap;
+    .dark-card {
+      background: var(--dark);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      min-height: 180px;
     }
 
-    .desc {
-      background: linear-gradient(180deg, rgba(239,244,252,0.96), rgba(246,249,253,0.96));
-      border: 1px solid rgba(15,35,80,0.08);
-      border-radius: 22px;
-      padding: 16px;
-      color: #43536f;
-      font-size: 1.05rem;
-      line-height: 1.5;
+    .dark-title {
+      color: rgba(255,255,255,0.62);
       font-weight: 600;
-      margin-bottom: 16px;
+      font-size: 0.92rem;
+      margin-bottom: 24px;
     }
 
-    .rssi-box {
-      background: linear-gradient(180deg, #f1f5fb, #eef3fb);
-      border: 1px solid rgba(15,35,80,0.08);
-      border-radius: 24px;
-      padding: 18px;
+    .dark-value {
+      font-size: 2.1rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 22px;
     }
 
-    .rssi-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 12px;
-      margin-bottom: 14px;
-      flex-wrap: wrap;
+    .dark-value span {
+      font-size: 1.3rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 600;
     }
 
-    .rssi-value {
-      font-family: "Orbitron", sans-serif;
-      font-size: 2.35rem;
-      font-weight: 900;
-      color: var(--navy);
-    }
-
-    .rssi-note {
-      color: #65738b;
-      font-weight: 800;
-      font-size: 1rem;
-    }
-
-    .meter {
-      height: 17px;
+    .dark-meter {
+      width: 100%;
+      height: 14px;
+      background: rgba(255,255,255,0.12);
       border-radius: 999px;
-      background: #dce4ef;
       overflow: hidden;
-      position: relative;
-      box-shadow: inset 0 2px 6px rgba(8,23,53,0.08);
     }
 
-    .meter-fill {
+    .dark-meter-fill {
+      width: 25%;
       height: 100%;
-      width: 10%;
       border-radius: 999px;
-      background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e, #22d3ee);
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--green));
       transition: width 0.35s ease;
     }
 
-    .meter-scale {
-      display: flex;
-      justify-content: space-between;
-      color: #70809a;
-      font-size: 0.88rem;
-      font-weight: 700;
-      margin-top: 9px;
-    }
-
-    .data-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-
-    .mini {
-      min-height: 145px;
-      border-radius: 24px;
-      padding: 18px;
-      background: linear-gradient(180deg, #f8fbff, #f1f5fb);
-      border: 1px solid rgba(15,35,80,0.08);
+    .main {
       display: flex;
       flex-direction: column;
+      gap: 24px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .metric-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      min-height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .metric-head {
+      display: flex;
       justify-content: space-between;
+      align-items: center;
+      margin-bottom: 26px;
     }
 
-    .mini h3 {
-      font-family: "Orbitron", sans-serif;
-      font-size: 0.72rem;
-      letter-spacing: 1.5px;
-      color: #5b6b86;
-      text-transform: uppercase;
+    .metric-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
     }
 
-    .mini .value {
-      font-family: "Orbitron", sans-serif;
-      font-size: 2rem;
-      font-weight: 900;
-      color: var(--navy);
-      margin: 10px 0;
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #f4f4f4;
+      display: grid;
+      place-items: center;
+      color: #222;
+      font-size: 1.4rem;
+      font-weight: 500;
     }
 
-    .mini p {
-      color: #697a94;
-      font-size: 0.98rem;
-      line-height: 1.35;
+    .bars {
+      height: 170px;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 130px;
+      border-radius: 12px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 100%;
+      height: 35%;
+      border-radius: 12px 12px 0 0;
+      background: var(--dark);
+      transition: height 0.35s ease;
+    }
+
+    .bar-label {
+      font-size: 0.76rem;
+      color: var(--muted);
       font-weight: 600;
+    }
+
+    .big-rssi {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-top: 20px;
+    }
+
+    .big-rssi span {
+      font-size: 1.2rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .circle-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .circle-wrap {
+      flex: 1;
+      display: grid;
+      place-items: center;
+    }
+
+    .circle {
+      width: 168px;
+      height: 168px;
+      border-radius: 50%;
+      background:
+        conic-gradient(var(--yellow) 0deg, var(--yellow) 20deg, #f0f0f0 20deg, #f0f0f0 360deg);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+
+    .circle::after {
+      content: "";
+      width: 126px;
+      height: 126px;
+      border-radius: 50%;
+      background: white;
+      position: absolute;
+    }
+
+    .circle-value {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      font-weight: 700;
+      font-size: 2rem;
+      letter-spacing: -1px;
+    }
+
+    .circle-value span {
+      display: block;
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 4px;
+      letter-spacing: 0;
+    }
+
+    .system-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      box-shadow: var(--shadow);
+    }
+
+    .system-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .system-tabs {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .tab {
+      padding: 9px 18px;
+      background: #f5f5f5;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .system-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .alert-text {
+      font-weight: 600;
+      color: #777;
+      font-size: 0.88rem;
+    }
+
+    .live-panel {
+      background: var(--dark);
+      border-radius: 24px;
+      color: white;
+      min-height: 205px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 78px 1fr auto;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .signal-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      display: grid;
+      place-items: center;
+      font-size: 2rem;
+    }
+
+    .live-main h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+
+    .live-main p {
+      color: rgba(255,255,255,0.68);
+      font-size: 0.96rem;
+      max-width: 520px;
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #e8edf4;
+      color: var(--dark);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-left: -8px;
+      border: 3px solid var(--dark);
+      font-size: 0.78rem;
     }
 
     .bottom-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 18px;
-      margin-bottom: 12px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
     }
 
-    .info-title {
-      font-family: "Orbitron", sans-serif;
-      color: #5b6b86;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      font-size: 0.72rem;
-      margin-bottom: 12px;
-      font-weight: 900;
+    .small-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      min-height: 150px;
     }
 
-    .info-value {
-      font-family: "Orbitron", sans-serif;
-      color: var(--navy);
-      font-size: 1.5rem;
-      font-weight: 900;
-      margin-bottom: 10px;
-    }
-
-    .info-desc {
-      color: #60718d;
-      line-height: 1.45;
+    .small-title {
+      font-size: 0.9rem;
+      color: var(--muted);
       font-weight: 600;
-      font-size: 1rem;
+      margin-bottom: 16px;
     }
 
-    .connection-row {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-      margin-top: 8px;
-      font-weight: 800;
-      color: #40506a;
+    .small-value {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -1px;
     }
 
-    .small-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 14px rgba(239,68,68,0.55);
+    .small-desc {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      font-weight: 500;
     }
 
     .footer {
       text-align: center;
-      font-weight: 700;
-      color: #718096;
-      padding-top: 10px;
-      letter-spacing: 0.5px;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 4px 0;
+      font-size: 0.88rem;
     }
 
-    .status-dekat { color: #16a34a; }
-    .status-sedang { color: #d97706; }
-    .status-jauh { color: #dc2626; }
-    .status-lost { color: #b91c1c; }
+    .text-green { color: var(--green); }
+    .text-yellow { color: #d99b00; }
+    .text-red { color: var(--red); }
+    .text-dark { color: var(--dark); }
 
-    .pill-dekat { background: #dcfce7; color: #15803d; }
-    .pill-sedang { background: #fef3c7; color: #b45309; }
-    .pill-jauh { background: #fee2e2; color: #dc2626; }
-    .pill-lost { background: #ffe4e6; color: #be123c; }
+    @media (max-width: 1000px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
 
-    @media (max-width: 920px) {
-      .main-grid,
+      .device-card {
+        min-height: auto;
+      }
+
+      .top-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      body {
+        padding: 16px;
+      }
+
       .bottom-grid {
         grid-template-columns: 1fr;
       }
-    }
 
-    @media (max-width: 620px) {
-      body {
-        padding: 18px 12px 28px;
-      }
-
-      .hero {
-        border-radius: 24px;
-        padding: 22px;
-      }
-
-      .brand h1 {
-        font-size: 1.65rem;
-      }
-
-      .logo {
-        width: 52px;
-        height: 52px;
-      }
-
-      .status-big {
-        font-size: 2.65rem;
-      }
-
-      .data-grid {
+      .live-panel {
         grid-template-columns: 1fr;
+      }
+
+      .avatar-stack {
+        justify-content: flex-start;
+      }
+
+      .device-card,
+      .metric-card,
+      .system-card,
+      .small-card,
+      .dark-card {
+        border-radius: 24px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header class="hero">
-      <div class="hero-content">
-        <div class="brand">
-          <div class="logo">SF</div>
-          <div>
-            <h1>SmartFinder</h1>
-            <p>Dashboard monitoring tag berbasis ESP32</p>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <section class="device-card">
+        <div class="hero-image">
+          <div class="status-chip">
+            <span class="chip-dot" id="chipDot"></span>
+            <span id="chipStatus">Offline</span>
+          </div>
+
+          <div class="hero-content">
+            <div class="hero-title">SmartFinder</div>
+            <div class="hero-subtitle">Tag Monitoring</div>
           </div>
         </div>
 
-        <div class="live-badge">
-          <span class="dot" id="liveDot"></span>
-          <span id="liveText">Memuat</span>
+        <div class="device-info">
+          <div class="info-line">
+            <span>Device ID</span>
+            <strong>SF-ESP32-01</strong>
+          </div>
+          <div class="info-line">
+            <span>Source</span>
+            <strong>Blynk Cloud</strong>
+          </div>
+          <div class="info-line">
+            <span>Last Update</span>
+            <strong id="sideUpdate">--</strong>
+          </div>
+          <div class="info-line">
+            <span>Status</span>
+            <strong id="sideStatus">Waiting</strong>
+          </div>
         </div>
-      </div>
-    </header>
+      </section>
 
-    <main class="main-grid">
-      <section class="card status-card">
-        <div class="label">Status Tag</div>
-
-        <div class="status-head">
-          <h2 class="status-big" id="statusText">--</h2>
-          <span class="status-pill" id="statusPill">Loading</span>
+      <section class="dark-card">
+        <div class="dark-title">RSSI Signal</div>
+        <div class="dark-value" id="darkRssi">-- <span>dBm</span></div>
+        <div class="dark-meter">
+          <div class="dark-meter-fill" id="darkMeter"></div>
         </div>
+      </section>
+    </aside>
 
-        <div class="desc" id="statusDescription">
-          Menunggu data terbaru dari receiver.
-        </div>
+    <main class="main">
+      <section class="top-grid">
+        <div class="metric-card">
+          <div class="metric-head">
+            <div class="metric-title">Signal Activity</div>
+            <div class="icon-btn">↗</div>
+          </div>
 
-        <div class="rssi-box">
-          <div class="rssi-top">
-            <div>
-              <div class="label" style="margin-bottom: 5px;">RSSI</div>
-              <div class="rssi-value" id="rssiValue">-- dBm</div>
+          <div class="big-rssi" id="mainRssi">-- <span>dBm</span></div>
+
+          <div class="bars">
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" style="height: 26%;"></div></div>
+              <div class="bar-label">Raw</div>
             </div>
-            <div class="rssi-note" id="rssiLabel">Belum terbaca</div>
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" style="height: 48%;"></div></div>
+              <div class="bar-label">Smooth</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" style="height: 38%;"></div></div>
+              <div class="bar-label">Now</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" id="liveBar" style="height: 55%;"></div></div>
+              <div class="bar-label">Live</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="metric-card circle-card">
+          <div class="metric-head">
+            <div class="metric-title">Signal Index</div>
+            <div class="icon-btn">↗</div>
           </div>
 
-          <div class="meter">
-            <div class="meter-fill" id="meterFill"></div>
-          </div>
-
-          <div class="meter-scale">
-            <span>Lemah</span>
-            <span>Sedang</span>
-            <span>Kuat</span>
+          <div class="circle-wrap">
+            <div class="circle" id="signalCircle">
+              <div class="circle-value" id="circleValue">
+                --
+                <span>Percent</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="card">
-        <div class="label">Data Tag</div>
+      <section class="system-card">
+        <div class="system-top">
+          <div class="system-tabs">
+            <div class="tab">Live Monitor</div>
+          </div>
+          <div class="system-title">System Status</div>
+          <div class="alert-text" id="alertText">Alerts</div>
+        </div>
 
-        <div class="data-grid">
-          <div class="mini">
-            <h3>Packet</h3>
-            <div class="value" id="packetValue">0</div>
-            <p>Total data yang diterima dari tag.</p>
+        <div class="live-panel">
+          <div class="signal-icon" id="signalIcon">⌁</div>
+
+          <div class="live-main">
+            <h2 id="statusTitle">Menunggu Data</h2>
+            <p id="statusDesc">
+              Dashboard sedang mengambil data terbaru dari receiver SmartFinder.
+            </p>
           </div>
 
-          <div class="mini">
-            <h3>Last Seen</h3>
-            <div class="value" id="lastSeenValue">--</div>
-            <p>Waktu sejak data terakhir masuk.</p>
-          </div>
-
-          <div class="mini">
-            <h3>Loss</h3>
-            <div class="value" id="lossValue">--</div>
-            <p>Paket data yang tidak terbaca.</p>
-          </div>
-
-          <div class="mini">
-            <h3>Update</h3>
-            <div class="value" id="updateValue">--:--</div>
-            <p>Waktu dashboard terakhir update.</p>
+          <div class="avatar-stack">
+            <div class="avatar">SF</div>
+            <div class="avatar">B</div>
           </div>
         </div>
       </section>
+
+      <section class="bottom-grid">
+        <div class="small-card">
+          <div class="small-title">Packet</div>
+          <div class="small-value" id="packetValue">0</div>
+          <div class="small-desc">Jumlah paket yang diterima dari tag.</div>
+        </div>
+
+        <div class="small-card">
+          <div class="small-title">Last Seen</div>
+          <div class="small-value" id="lastSeenValue">--</div>
+          <div class="small-desc">Waktu sejak data terakhir masuk.</div>
+        </div>
+
+        <div class="small-card">
+          <div class="small-title">Packet Loss</div>
+          <div class="small-value" id="lossValue">--</div>
+          <div class="small-desc">Paket data yang terlewat.</div>
+        </div>
+      </section>
+
+      <div class="footer">SmartFinder v1.0</div>
     </main>
-
-    <section class="bottom-grid">
-      <div class="card">
-        <div class="info-title">Koneksi</div>
-        <div class="info-value" id="connectionValue">Menunggu</div>
-        <div class="connection-row">
-          <span class="small-dot" id="connectionDot"></span>
-          <span id="connectionText">Belum ada data masuk</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="info-title">Estimasi Jarak</div>
-        <div class="info-value" id="distanceMeaning">-</div>
-        <div class="info-desc" id="distanceNote">
-          Status dihitung dari kekuatan sinyal RSSI.
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="info-title">Refresh</div>
-        <div class="info-value">2 Detik</div>
-        <div class="info-desc">
-          Dashboard memperbarui data secara otomatis.
-        </div>
-      </div>
-    </section>
-
-    <div class="footer">SmartFinder v1.0</div>
   </div>
 
   <script>
-    const API_URL = "https://LINK-WORKER-KAMU.workers.dev/api/latest";
+    const API_URL = "https://smartfinder-blynk-link.kruzz-smartfinder.workers.dev/api/latest";
 
-    const statusText = document.getElementById("statusText");
-    const statusPill = document.getElementById("statusPill");
-    const statusDescription = document.getElementById("statusDescription");
-    const rssiValue = document.getElementById("rssiValue");
-    const rssiLabel = document.getElementById("rssiLabel");
-    const meterFill = document.getElementById("meterFill");
+    const chipDot = document.getElementById("chipDot");
+    const chipStatus = document.getElementById("chipStatus");
+    const sideUpdate = document.getElementById("sideUpdate");
+    const sideStatus = document.getElementById("sideStatus");
+    const darkRssi = document.getElementById("darkRssi");
+    const darkMeter = document.getElementById("darkMeter");
+    const mainRssi = document.getElementById("mainRssi");
+    const liveBar = document.getElementById("liveBar");
+    const signalCircle = document.getElementById("signalCircle");
+    const circleValue = document.getElementById("circleValue");
+    const alertText = document.getElementById("alertText");
+    const signalIcon = document.getElementById("signalIcon");
+    const statusTitle = document.getElementById("statusTitle");
+    const statusDesc = document.getElementById("statusDesc");
     const packetValue = document.getElementById("packetValue");
     const lastSeenValue = document.getElementById("lastSeenValue");
     const lossValue = document.getElementById("lossValue");
-    const updateValue = document.getElementById("updateValue");
-    const liveText = document.getElementById("liveText");
-    const liveDot = document.getElementById("liveDot");
-    const connectionValue = document.getElementById("connectionValue");
-    const connectionText = document.getElementById("connectionText");
-    const connectionDot = document.getElementById("connectionDot");
-    const distanceMeaning = document.getElementById("distanceMeaning");
-    const distanceNote = document.getElementById("distanceNote");
 
     function formatLastSeen(ms) {
-      const num = Number(ms || 0);
-      if (num < 1000) return num + " ms";
-      return (num / 1000).toFixed(1) + " s";
+      const n = Number(ms || 0);
+      if (n < 1000) return n + " ms";
+      return (n / 1000).toFixed(1) + " s";
     }
 
-    function getRssiText(rssi) {
-      if (rssi >= -60) return "Sinyal kuat";
-      if (rssi >= -75) return "Sinyal sedang";
-      if (rssi >= -90) return "Sinyal lemah";
-      return "Sinyal sangat lemah";
+    function rssiPercent(rssi) {
+      let p = ((Number(rssi) + 100) / 60) * 100;
+      if (p < 4) p = 4;
+      if (p > 100) p = 100;
+      return Math.round(p);
     }
 
-    function getMeterPercent(rssi) {
-      let percent = ((rssi + 100) / 60) * 100;
-      if (percent < 5) percent = 5;
-      if (percent > 100) percent = 100;
-      return percent;
-    }
-
-    function resetClass() {
-      statusText.className = "status-big";
-      statusPill.className = "status-pill";
-    }
-
-    function applyStatus(status) {
+    function setStatus(status) {
       const s = String(status || "LOST").toUpperCase();
-      resetClass();
+
+      chipStatus.className = "";
+      sideStatus.className = "";
+      statusTitle.className = "";
 
       if (s === "DEKAT") {
-        statusText.textContent = "DEKAT";
-        statusText.classList.add("status-dekat");
-        statusPill.textContent = "Dekat";
-        statusPill.classList.add("pill-dekat");
-        statusDescription.textContent = "Tag berada dekat dengan receiver dan mudah ditemukan.";
-        connectionValue.textContent = "Stabil";
-        connectionText.textContent = "Data masuk dengan baik.";
-        connectionDot.style.background = "#22c55e";
-        liveDot.style.background = "#22c55e";
-        liveText.textContent = "Online";
-        distanceMeaning.textContent = "Area Dekat";
-        distanceNote.textContent = "Tag diperkirakan berada di sekitar receiver.";
+        chipStatus.textContent = "Online";
+        sideStatus.textContent = "Dekat";
+        sideStatus.classList.add("text-green");
+        statusTitle.textContent = "Tag Terdeteksi Dekat";
+        statusTitle.classList.add("text-green");
+        statusDesc.textContent = "Tag berada dekat dengan receiver. Posisi barang mudah ditemukan.";
+        chipDot.style.background = "#38b76b";
+        signalIcon.textContent = "●";
+        alertText.textContent = "Normal";
       } else if (s === "SEDANG") {
-        statusText.textContent = "SEDANG";
-        statusText.classList.add("status-sedang");
-        statusPill.textContent = "Sedang";
-        statusPill.classList.add("pill-sedang");
-        statusDescription.textContent = "Tag masih terdeteksi, namun jaraknya mulai menjauh.";
-        connectionValue.textContent = "Cukup";
-        connectionText.textContent = "Data masih masuk, sinyal mulai menurun.";
-        connectionDot.style.background = "#f59e0b";
-        liveDot.style.background = "#f59e0b";
-        liveText.textContent = "Online";
-        distanceMeaning.textContent = "Area Sedang";
-        distanceNote.textContent = "Tag berada di jarak menengah dari receiver.";
+        chipStatus.textContent = "Online";
+        sideStatus.textContent = "Sedang";
+        sideStatus.classList.add("text-yellow");
+        statusTitle.textContent = "Tag Masih Terpantau";
+        statusTitle.classList.add("text-yellow");
+        statusDesc.textContent = "Tag masih terdeteksi dengan cukup baik, namun jaraknya mulai menjauh.";
+        chipDot.style.background = "#f2bd42";
+        signalIcon.textContent = "◐";
+        alertText.textContent = "Monitor";
       } else if (s === "JAUH") {
-        statusText.textContent = "JAUH";
-        statusText.classList.add("status-jauh");
-        statusPill.textContent = "Jauh";
-        statusPill.classList.add("pill-jauh");
-        statusDescription.textContent = "Tag masih terhubung, tetapi sinyal sudah cukup lemah.";
-        connectionValue.textContent = "Lemah";
-        connectionText.textContent = "Data masuk, namun sinyal melemah.";
-        connectionDot.style.background = "#ef4444";
-        liveDot.style.background = "#ef4444";
-        liveText.textContent = "Online";
-        distanceMeaning.textContent = "Area Jauh";
-        distanceNote.textContent = "Tag berada cukup jauh atau terhalang objek.";
+        chipStatus.textContent = "Online";
+        sideStatus.textContent = "Jauh";
+        sideStatus.classList.add("text-red");
+        statusTitle.textContent = "Sinyal Tag Lemah";
+        statusTitle.classList.add("text-red");
+        statusDesc.textContent = "Tag masih terhubung, tetapi sinyal melemah. Periksa area sekitar receiver.";
+        chipDot.style.background = "#e84d4d";
+        signalIcon.textContent = "◌";
+        alertText.textContent = "Weak Signal";
       } else {
-        statusText.textContent = "LOST";
-        statusText.classList.add("status-lost");
-        statusPill.textContent = "Lost";
-        statusPill.classList.add("pill-lost");
-        statusDescription.textContent = "Tag tidak terdeteksi atau berada di luar jangkauan.";
-        connectionValue.textContent = "Terputus";
-        connectionText.textContent = "Receiver belum menerima data terbaru.";
-        connectionDot.style.background = "#ef4444";
-        liveDot.style.background = "#ef4444";
-        liveText.textContent = "Lost";
-        distanceMeaning.textContent = "Tidak Terhubung";
-        distanceNote.textContent = "Tag berada di luar jangkauan atau sinyal terhalang kuat.";
+        chipStatus.textContent = "Offline";
+        sideStatus.textContent = "Lost";
+        sideStatus.classList.add("text-red");
+        statusTitle.textContent = "Koneksi Terputus";
+        statusTitle.classList.add("text-red");
+        statusDesc.textContent = "Tidak dapat terhubung ke alat. Periksa koneksi WiFi atau posisi tag.";
+        chipDot.style.background = "#e84d4d";
+        signalIcon.textContent = "⌁";
+        alertText.textContent = "Disconnected";
       }
+    }
+
+    function setSignal(rssi) {
+      const value = Number(rssi);
+      const p = rssiPercent(value);
+      const degree = Math.round((p / 100) * 360);
+
+      darkRssi.innerHTML = `${value} <span>dBm</span>`;
+      mainRssi.innerHTML = `${value} <span>dBm</span>`;
+      darkMeter.style.width = p + "%";
+      liveBar.style.height = p + "%";
+
+      signalCircle.style.background =
+        `conic-gradient(#f2bd42 0deg, #f2bd42 ${degree}deg, #f0f0f0 ${degree}deg, #f0f0f0 360deg)`;
+
+      circleValue.innerHTML = `${p}<span>Percent</span>`;
     }
 
     async function loadData() {
@@ -648,39 +801,35 @@
         const d = json.data || json;
 
         const status = d.status || d.V0 || "LOST";
-        const rssi = Number(d.rssi ?? d.V1 ?? -100);
+        const rssi = d.rssi ?? d.V1 ?? -100;
         const packet = d.packet ?? d.V2 ?? 0;
         const lastSeen = d.last_seen_ms ?? d.lastSeen ?? d.V3 ?? 0;
         const loss = d.packet_loss ?? d.loss ?? d.V4 ?? 0;
 
-        applyStatus(status);
-
-        rssiValue.textContent = rssi + " dBm";
-        rssiLabel.textContent = getRssiText(rssi);
-        meterFill.style.width = getMeterPercent(rssi) + "%";
+        setStatus(status);
+        setSignal(rssi);
 
         packetValue.textContent = packet;
         lastSeenValue.textContent = formatLastSeen(lastSeen);
         lossValue.textContent = loss;
 
-        updateValue.textContent = new Date().toLocaleTimeString("id-ID", {
+        const time = new Date().toLocaleTimeString("id-ID", {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit"
         });
+
+        sideUpdate.textContent = time;
       } catch (err) {
         console.log(err);
-        applyStatus("LOST");
-        rssiValue.textContent = "-- dBm";
-        rssiLabel.textContent = "Gagal mengambil data";
-        meterFill.style.width = "5%";
+        setStatus("LOST");
+        darkRssi.innerHTML = `-- <span>dBm</span>`;
+        mainRssi.innerHTML = `-- <span>dBm</span>`;
+        circleValue.innerHTML = `--<span>Percent</span>`;
         packetValue.textContent = "0";
         lastSeenValue.textContent = "--";
         lossValue.textContent = "--";
-        updateValue.textContent = "--:--";
-        connectionValue.textContent = "Error";
-        connectionText.textContent = "Gagal mengambil data dari server.";
-        liveText.textContent = "Error";
+        sideUpdate.textContent = "--";
       }
     }
 
