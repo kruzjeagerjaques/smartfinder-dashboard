@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SmartFinder</title>
+  <meta name="description" content="Dashboard SmartFinder v1.0" />
+  <style>
+    :root{
+      --bg:#eef3fb;
+      --card:#ffffff;
+      --navy:#081b4b;
+      --text:#111827;
+      --muted:#64748b;
+      --line:#e5eaf3;
+      --soft:#f6f8fc;
+      --green:#16a34a;
+      --orange:#ea580c;
+      --red:#dc2626;
+      --blue:#2563eb;
+      --shadow:0 18px 45px rgba(8,27,75,.12);
+      --radius:26px;
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+
+    body{
+      min-height:100vh;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,.14), transparent 34%),
+        linear-gradient(180deg,#f8fbff 0%,var(--bg) 100%);
+      color:var(--text);
+      padding:22px;
+    }
+
+    .wrap{max-width:980px;margin:0 auto}
+
+    .hero{
+      background:linear-gradient(135deg,#081b4b,#123277);
+      color:#fff;
+      border-radius:32px;
+      padding:28px;
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:18px;
+      align-items:center;
+    }
+
+    .brand{display:flex;gap:14px;align-items:center}
+
+    .logo{
+      width:52px;height:52px;border-radius:18px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.2);
+      font-size:24px;font-weight:900;
+    }
+
+    h1{font-size:clamp(28px,4vw,44px);line-height:1;font-weight:900;letter-spacing:-.04em}
+    .sub{color:rgba(255,255,255,.74);margin-top:8px;font-size:15px}
+
+    .live{
+      padding:10px 14px;border-radius:999px;
+      display:flex;gap:8px;align-items:center;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      color:#dbeafe;font-size:14px;font-weight:700;
+      white-space:nowrap;
+    }
+
+    .dot{width:9px;height:9px;border-radius:50%;background:#94a3b8;box-shadow:0 0 0 5px rgba(148,163,184,.16)}
+    .dot.online{background:#22c55e;box-shadow:0 0 0 5px rgba(34,197,94,.16)}
+    .dot.offline{background:#ef4444;box-shadow:0 0 0 5px rgba(239,68,68,.16)}
+
+    .main{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:18px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid rgba(226,232,240,.9);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .status-card{padding:26px;display:flex;flex-direction:column;gap:18px;min-height:280px}
+
+    .label{font-size:13px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.12em}
+
+    .status-row{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+
+    .status-text{
+      font-size:clamp(34px,6vw,64px);
+      font-weight:950;letter-spacing:-.06em;line-height:1;
+      color:var(--navy);
+    }
+
+    .badge{
+      padding:10px 14px;border-radius:999px;
+      font-size:13px;font-weight:900;
+      background:#e0f2fe;color:#075985;
+    }
+    .badge.dekat{background:#dcfce7;color:#166534}
+    .badge.sedang{background:#ffedd5;color:#9a3412}
+    .badge.jauh{background:#fee2e2;color:#991b1b}
+    .badge.lost{background:#e2e8f0;color:#334155}
+
+    .signal-box{
+      background:var(--soft);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+    }
+
+    .signal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:12px}
+    .rssi{font-size:34px;font-weight:950;color:var(--navy);letter-spacing:-.04em}
+    .muted{color:var(--muted);font-size:14px}
+
+    .bar{height:12px;background:#e2e8f0;border-radius:999px;overflow:hidden}
+    .bar-fill{height:100%;width:0%;background:linear-gradient(90deg,#ef4444,#f97316,#22c55e);border-radius:999px;transition:width .25s ease}
+
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:18px}
+
+    .metric{
+      background:var(--soft);
+      border:1px solid var(--line);
+      border-radius:22px;
+      padding:18px;
+      min-height:116px;
+    }
+
+    .metric .value{margin-top:16px;font-size:30px;font-weight:950;color:var(--navy);letter-spacing:-.04em;word-break:break-word}
+
+    .footer{
+      margin-top:16px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    .api-box{
+      margin-top:16px;
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      border-radius:20px;
+      padding:14px 16px;
+      font-size:14px;
+      display:none;
+    }
+
+    .api-box code{font-weight:800}
+
+    @media (max-width:760px){
+      body{padding:14px}
+      .hero{grid-template-columns:1fr;padding:22px;border-radius:26px}
+      .main{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr 1fr;padding:14px;gap:12px}
+      .metric{padding:15px;min-height:104px}
+      .metric .value{font-size:25px}
+      .status-card{padding:22px;min-height:245px}
+    }
+
+    @media (max-width:420px){
+      .grid{grid-template-columns:1fr}
+      .brand{align-items:flex-start}
+      .logo{width:46px;height:46px;border-radius:16px}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <div class="brand">
+        <div class="logo">S</div>
+        <div>
+          <h1>SmartFinder</h1>
+          <p class="sub">Dashboard pemantauan tag</p>
+        </div>
+      </div>
+      <div class="live"><span id="dot" class="dot"></span><span id="connectionText">Memuat</span></div>
+    </section>
+
+    <div id="apiWarning" class="api-box">
+      Link Worker belum diisi. Buka file <code>index.html</code>, lalu ganti <code>WORKER_BASE_URL</code> dengan link Worker kamu.
+    </div>
+
+    <section class="main">
+      <article class="card status-card">
+        <div class="label">Status</div>
+        <div class="status-row">
+          <div id="statusText" class="status-text">-</div>
+          <div id="statusBadge" class="badge">-</div>
+        </div>
+
+        <div class="signal-box">
+          <div class="signal-top">
+            <div>
+              <div class="label">RSSI</div>
+              <div id="rssiText" class="rssi">- dBm</div>
+            </div>
+            <div id="signalText" class="muted">-</div>
+          </div>
+          <div class="bar"><div id="barFill" class="bar-fill"></div></div>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="grid">
+          <div class="metric">
+            <div class="label">Packet</div>
+            <div id="packetText" class="value">-</div>
+          </div>
+          <div class="metric">
+            <div class="label">Last Seen</div>
+            <div id="lastSeenText" class="value">-</div>
+          </div>
+          <div class="metric">
+            <div class="label">Loss</div>
+            <div id="lossText" class="value">-</div>
+          </div>
+          <div class="metric">
+            <div class="label">Update</div>
+            <div id="updatedText" class="value">-</div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">SmartFinder v1.0</p>
+  </main>
+
+  <script>
+    // GANTI LINK INI dengan link Worker kamu.
+    // Contoh: const WORKER_BASE_URL = "https://smartfinder-blynk-link.kruzz-smartfinder.workers.dev";
+    const WORKER_BASE_URL = "https://smartfinder-blynk-link.kruzz-smartfinder.workers.dev";
+
+    const el = (id) => document.getElementById(id);
+
+    function normalizeStatus(value){
+      const raw = String(value || "-").trim().toUpperCase();
+      if(raw.includes("DEKAT")) return "DEKAT";
+      if(raw.includes("SEDANG")) return "SEDANG";
+      if(raw.includes("JAUH")) return "JAUH";
+      if(raw.includes("TIDAK") || raw.includes("LOST") || raw.includes("OFF")) return "LOST";
+      return raw || "-";
+    }
+
+    function statusClass(status){
+      if(status === "DEKAT") return "dekat";
+      if(status === "SEDANG") return "sedang";
+      if(status === "JAUH") return "jauh";
+      if(status === "LOST") return "lost";
+      return "";
+    }
+
+    function pick(data, keys, fallback="-"){
+      for(const key of keys){
+        const parts = key.split(".");
+        let cur = data;
+        let ok = true;
+        for(const part of parts){
+          if(cur && Object.prototype.hasOwnProperty.call(cur, part)) cur = cur[part];
+          else { ok = false; break; }
+        }
+        if(ok && cur !== undefined && cur !== null && cur !== "") return cur;
+      }
+      return fallback;
+    }
+
+    function formatLastSeen(value){
+      const n = Number(value);
+      if(!Number.isFinite(n)) return "-";
+      if(n < 1000) return `${Math.max(0, Math.round(n))} ms`;
+      return `${(n/1000).toFixed(1)} s`;
+    }
+
+    function signalPercent(rssi){
+      const n = Number(rssi);
+      if(!Number.isFinite(n)) return 0;
+      const clamped = Math.max(-100, Math.min(-35, n));
+      return Math.round(((clamped + 100) / 65) * 100);
+    }
+
+    function signalLabel(rssi){
+      const n = Number(rssi);
+      if(!Number.isFinite(n)) return "-";
+      if(n >= -62) return "Kuat";
+      if(n >= -82) return "Sedang";
+      return "Lemah";
+    }
+
+    function setOffline(message="Offline"){
+      el("dot").className = "dot offline";
+      el("connectionText").textContent = message;
+    }
+
+    function setOnline(){
+      el("dot").className = "dot online";
+      el("connectionText").textContent = "Online";
+    }
+
+    function applyData(data){
+      const online = pick(data, ["online", "connected", "isHardwareConnected", "deviceOnline"], true);
+      const status = normalizeStatus(pick(data, ["status", "V0", "pins.V0", "datastreams.V0", "values.V0"]));
+      const rssi = Number(pick(data, ["rssi", "V1", "pins.V1", "datastreams.V1", "values.V1"], NaN));
+      const packet = pick(data, ["packet", "V2", "pins.V2", "datastreams.V2", "values.V2"]);
+      const lastSeen = pick(data, ["lastSeen", "last_seen", "V3", "pins.V3", "datastreams.V3", "values.V3"]);
+      const loss = pick(data, ["packetLoss", "loss", "V4", "pins.V4", "datastreams.V4", "values.V4"]);
+
+      if(online === false || status === "LOST") setOffline(status === "LOST" ? "Lost" : "Offline");
+      else setOnline();
+
+      el("statusText").textContent = status;
+      el("statusBadge").textContent = status;
+      el("statusBadge").className = `badge ${statusClass(status)}`;
+
+      el("rssiText").textContent = Number.isFinite(rssi) ? `${Math.round(rssi)} dBm` : "- dBm";
+      el("signalText").textContent = signalLabel(rssi);
+      el("barFill").style.width = `${signalPercent(rssi)}%`;
+
+      el("packetText").textContent = packet ?? "-";
+      el("lastSeenText").textContent = formatLastSeen(lastSeen);
+      el("lossText").textContent = loss ?? "-";
+      el("updatedText").textContent = new Date().toLocaleTimeString("id-ID", {hour:"2-digit", minute:"2-digit", second:"2-digit"});
+    }
+
+    async function refresh(){
+      if(!WORKER_BASE_URL || WORKER_BASE_URL.includes("PASTE")){
+        el("apiWarning").style.display = "block";
+        setOffline("API belum diisi");
+        return;
+      }
+
+      try{
+        const res = await fetch(`${WORKER_BASE_URL.replace(/\/$/, "")}/api/latest?ts=${Date.now()}`, { cache: "no-store" });
+        if(!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        applyData(data);
+      }catch(err){
+        console.error(err);
+        setOffline("Gagal update");
+      }
+    }
+
+    refresh();
+    setInterval(refresh, 1500);
+  </script>
+</body>
+</html>
