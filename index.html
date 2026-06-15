@@ -3,563 +3,777 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SmartFinder Radar Dashboard</title>
+  <title>SmartFinder Dashboard</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg1: #07111f;
-      --bg2: #0b1f3a;
-      --panel: rgba(255, 255, 255, 0.08);
-      --panel2: rgba(255, 255, 255, 0.12);
-      --line: rgba(255, 255, 255, 0.13);
-      --text: #f8fbff;
-      --muted: #94a8c7;
-      --blue: #38bdf8;
-      --cyan: #22d3ee;
-      --green: #4ade80;
-      --yellow: #facc15;
-      --orange: #fb923c;
-      --red: #fb7185;
-      --shadow: 0 24px 60px rgba(0, 0, 0, 0.26);
+      --bg: #f4f1e9;
+      --card: #ffffff;
+      --dark: #202020;
+      --text: #252525;
+      --muted: #888888;
+      --soft: #f4f4f4;
+      --line: #e8e4dc;
+      --navy: #102a63;
+      --blue: #275efe;
+      --green: #38b76b;
+      --yellow: #f2bd42;
+      --orange: #f08c36;
+      --red: #e84d4d;
+      --shadow: 0 18px 45px rgba(30, 30, 30, 0.08);
+      --radius-xl: 32px;
+      --radius-lg: 24px;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Sora", sans-serif;
+      font-family: "Poppins", sans-serif;
     }
 
     body {
       min-height: 100vh;
-      background:
-        radial-gradient(circle at 20% 10%, rgba(56, 189, 248, 0.20), transparent 28%),
-        radial-gradient(circle at 85% 20%, rgba(34, 211, 238, 0.12), transparent 26%),
-        linear-gradient(145deg, var(--bg1), var(--bg2));
+      background: var(--bg);
       color: var(--text);
       padding: 26px;
-      overflow-x: hidden;
-    }
-
-    .page {
-      max-width: 1180px;
-      margin: 0 auto;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 22px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-
-    .logo {
-      width: 58px;
-      height: 58px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, rgba(34, 211, 238, 0.95), rgba(56, 189, 248, 0.25));
-      display: grid;
-      place-items: center;
-      box-shadow: 0 14px 35px rgba(34, 211, 238, 0.20);
-      font-weight: 800;
-      color: white;
-      letter-spacing: -1px;
-    }
-
-    .brand h1 {
-      font-size: 2rem;
-      line-height: 1;
-      letter-spacing: -1px;
-      margin-bottom: 6px;
-    }
-
-    .brand p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-weight: 500;
-    }
-
-    .connection-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 17px;
-      border-radius: 999px;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      backdrop-filter: blur(18px);
-      color: var(--text);
-      font-weight: 700;
-      font-size: 0.88rem;
-    }
-
-    .live-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--red);
-      box-shadow: 0 0 18px rgba(251, 113, 133, 0.9);
     }
 
     .dashboard {
+      max-width: 1180px;
+      margin: 0 auto;
       display: grid;
-      grid-template-columns: 1.05fr 1.2fr;
+      grid-template-columns: 320px 1fr;
+      gap: 24px;
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
       gap: 22px;
+    }
+
+    .device-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      box-shadow: var(--shadow);
+      min-height: 640px;
+    }
+
+    .hero-box {
+      height: 280px;
+      border-radius: 24px;
+      background:
+        linear-gradient(180deg, rgba(16, 42, 99, 0.18), rgba(16, 42, 99, 0.82)),
+        radial-gradient(circle at top right, rgba(255,255,255,0.30), transparent 35%),
+        linear-gradient(135deg, #0d2b66, #2457c5);
+      position: relative;
+      overflow: hidden;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      color: white;
+    }
+
+    .hero-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.28;
+    }
+
+    .hero-box::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 50%;
+      top: -90px;
+      right: -80px;
+      background: rgba(255,255,255,0.13);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-size: 1.65rem;
+      line-height: 1.15;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.8px;
+    }
+
+    .hero-subtitle {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.78);
+      font-weight: 500;
+    }
+
+    .status-chip {
+      position: absolute;
+      right: 20px;
+      bottom: 24px;
+      z-index: 3;
+      padding: 8px 20px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.22);
+      color: white;
+      font-size: 0.82rem;
+      font-weight: 700;
+      backdrop-filter: blur(8px);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red);
+    }
+
+    .device-info {
+      margin-top: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .info-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 8px;
+      border-bottom: 1px dashed var(--line);
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 500;
+    }
+
+    .info-line strong {
+      color: var(--text);
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .dark-card {
+      background: var(--dark);
+      color: white;
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      min-height: 190px;
+    }
+
+    .dark-title {
+      color: rgba(255,255,255,0.62);
+      font-weight: 600;
+      font-size: 0.92rem;
       margin-bottom: 22px;
     }
 
-    .panel {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 32px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
+    .dark-value {
+      font-size: 2.05rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 22px;
+    }
+
+    .dark-value span {
+      font-size: 1.25rem;
+      color: rgba(255,255,255,0.45);
+      font-weight: 600;
+    }
+
+    .dark-meter {
+      width: 100%;
+      height: 14px;
+      background: rgba(255,255,255,0.13);
+      border-radius: 999px;
       overflow: hidden;
     }
 
-    .radar-panel {
-      padding: 26px;
+    .dark-meter-fill {
+      width: 25%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green));
+      transition: width 0.35s ease;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .metric-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      min-height: 320px;
       position: relative;
-      min-height: 540px;
+      overflow: hidden;
+    }
+
+    .metric-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 26px;
+    }
+
+    .metric-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+    }
+
+    .icon-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #f4f4f4;
+      display: grid;
+      place-items: center;
+      color: #222;
+      font-size: 1.35rem;
+      font-weight: 500;
+    }
+
+    .rssi-large {
+      font-size: 2.4rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+    }
+
+    .rssi-large span {
+      font-size: 1.2rem;
+      color: var(--muted);
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .bar-box {
+      margin-top: 10px;
+    }
+
+    .bar-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .percent-text {
+      color: var(--text);
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+
+    .signal-track {
+      width: 100%;
+      height: 22px;
+      border-radius: 999px;
+      background: #eeeeee;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .signal-fill {
+      width: 25%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #e84d4d, #f08c36, #f2bd42, #38b76b);
+      transition: width 0.35s ease;
+    }
+
+    .scale {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .bars {
+      height: 110px;
+      display: flex;
+      align-items: flex-end;
+      gap: 12px;
+      margin-top: 26px;
+    }
+
+    .bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .bar-bg {
+      width: 100%;
+      height: 88px;
+      border-radius: 12px;
+      background: #f0f0f0;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .bar {
+      width: 100%;
+      height: 35%;
+      border-radius: 12px 12px 0 0;
+      background: var(--dark);
+      transition: height 0.35s ease;
+    }
+
+    .bar-label {
+      font-size: 0.76rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .percent-card {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
     }
 
-    .section-label {
-      color: var(--muted);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1.8px;
-      font-weight: 800;
-      margin-bottom: 12px;
-    }
-
-    .status-main {
+    .percent-main {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 14px;
-      margin-bottom: 18px;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 18px 0;
     }
 
-    .status-title {
-      font-size: 3.2rem;
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1;
-    }
-
-    .status-chip {
-      padding: 9px 14px;
-      border-radius: 999px;
-      font-size: 0.78rem;
-      font-weight: 800;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid var(--line);
-      white-space: nowrap;
-    }
-
-    .status-desc {
-      color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.65;
-      max-width: 440px;
-      margin-bottom: 20px;
-      font-weight: 500;
-    }
-
-    .radar {
-      width: min(330px, 100%);
-      aspect-ratio: 1/1;
-      border-radius: 50%;
-      margin: 8px auto 0;
+    .percent-box {
+      width: 190px;
+      height: 190px;
+      border-radius: 38px;
+      background: #f4f4f4;
+      display: grid;
+      place-items: center;
       position: relative;
-      background:
-        radial-gradient(circle, rgba(34,211,238,0.20) 0 2px, transparent 3px),
-        repeating-radial-gradient(circle, transparent 0 38px, rgba(255,255,255,0.11) 39px 40px),
-        linear-gradient(135deg, rgba(34,211,238,0.10), rgba(56,189,248,0.02));
-      border: 1px solid rgba(255,255,255,0.16);
-      box-shadow:
-        inset 0 0 50px rgba(34,211,238,0.08),
-        0 0 50px rgba(34,211,238,0.05);
       overflow: hidden;
     }
 
-    .radar::before {
+    .percent-box::before {
       content: "";
       position: absolute;
-      inset: 50% 50% 0 0;
-      background: linear-gradient(45deg, rgba(34,211,238,0.58), transparent 70%);
-      transform-origin: 0 0;
-      animation: sweep 3s linear infinite;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 30%;
+      background: linear-gradient(180deg, rgba(56,183,107,0.22), rgba(56,183,107,0.55));
+      transition: height 0.35s ease;
     }
 
-    .radar::after {
-      content: "";
-      position: absolute;
-      inset: 50%;
-      width: 12px;
-      height: 12px;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 20px var(--cyan);
-    }
-
-    .target-dot {
-      position: absolute;
-      width: 17px;
-      height: 17px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 22px rgba(74,222,128,0.9);
-      left: 63%;
-      top: 33%;
-      transform: translate(-50%, -50%);
+    .percent-box-inner {
+      position: relative;
       z-index: 2;
-      transition: 0.35s ease;
+      text-align: center;
     }
 
-    @keyframes sweep {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    .info-panel {
-      padding: 26px;
-    }
-
-    .rssi-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--line);
-      border-radius: 26px;
-      padding: 22px;
-      margin-bottom: 18px;
-    }
-
-    .rssi-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      gap: 16px;
-      margin-bottom: 18px;
-      flex-wrap: wrap;
-    }
-
-    .rssi-value {
+    .percent-number {
       font-size: 3rem;
       font-weight: 800;
       letter-spacing: -2px;
     }
 
-    .rssi-value span {
+    .percent-label {
       color: var(--muted);
-      font-size: 1.1rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      letter-spacing: 0;
+      margin-top: 4px;
     }
 
-    .rssi-note {
-      color: var(--muted);
-      font-weight: 700;
-      font-size: 0.95rem;
+    .system-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 26px;
+      box-shadow: var(--shadow);
     }
 
-    .signal-bar {
-      height: 16px;
-      border-radius: 999px;
-      overflow: hidden;
-      background: rgba(255,255,255,0.10);
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .signal-fill {
-      height: 100%;
-      width: 8%;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--cyan));
-      transition: width 0.35s ease;
-    }
-
-    .signal-scale {
+    .system-top {
       display: flex;
       justify-content: space-between;
-      color: var(--muted);
-      font-size: 0.78rem;
-      margin-top: 10px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .tab {
+      padding: 9px 18px;
+      background: #f5f5f5;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .system-title {
+      font-size: 1.05rem;
       font-weight: 700;
     }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+    .alert-text {
+      font-weight: 600;
+      color: #777;
+      font-size: 0.88rem;
     }
 
-    .data-card {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid var(--line);
+    .live-panel {
+      background: var(--dark);
       border-radius: 24px;
-      padding: 20px;
-      min-height: 142px;
+      color: white;
+      min-height: 205px;
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 78px 1fr auto;
+      align-items: center;
+      gap: 24px;
     }
 
-    .data-card h3 {
-      color: var(--muted);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      margin-bottom: 14px;
-      font-weight: 800;
-    }
-
-    .data-value {
+    .signal-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.08);
+      display: grid;
+      place-items: center;
       font-size: 2rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 10px;
     }
 
-    .data-card p {
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.45;
+    .live-main h2 {
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
+    }
+
+    .live-main p {
+      color: rgba(255,255,255,0.68);
+      font-size: 0.96rem;
+      max-width: 520px;
+      line-height: 1.6;
       font-weight: 500;
     }
 
-    .bottom-row {
+    .avatar-stack {
+      display: flex;
+      align-items: center;
+    }
+
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #e8edf4;
+      color: var(--dark);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      margin-left: -8px;
+      border: 3px solid var(--dark);
+      font-size: 0.78rem;
+    }
+
+    .bottom-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
+      gap: 24px;
     }
 
-    .mini-panel {
-      padding: 22px;
-      min-height: 160px;
+    .small-card {
+      background: var(--card);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      min-height: 150px;
     }
 
-    .mini-title {
+    .small-title {
+      font-size: 0.9rem;
       color: var(--muted);
-      font-size: 0.78rem;
-      text-transform: uppercase;
-      letter-spacing: 1.4px;
-      margin-bottom: 13px;
-      font-weight: 800;
+      font-weight: 600;
+      margin-bottom: 16px;
     }
 
-    .mini-value {
-      font-size: 1.55rem;
-      font-weight: 800;
+    .small-value {
+      font-size: 2rem;
+      font-weight: 700;
       letter-spacing: -1px;
-      margin-bottom: 12px;
     }
 
-    .mini-desc {
+    .small-desc {
+      margin-top: 12px;
       color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.55;
+      font-size: 0.9rem;
+      line-height: 1.5;
       font-weight: 500;
     }
 
-    .status-dekat { color: var(--green); }
-    .status-sedang { color: var(--yellow); }
-    .status-jauh { color: var(--orange); }
-    .status-lost { color: var(--red); }
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      font-weight: 500;
+      padding: 4px 0;
+      font-size: 0.88rem;
+    }
 
-    @media (max-width: 980px) {
+    .text-green { color: var(--green); }
+    .text-yellow { color: #d99b00; }
+    .text-orange { color: var(--orange); }
+    .text-red { color: var(--red); }
+    .text-dark { color: var(--dark); }
+
+    @media (max-width: 1000px) {
       .dashboard {
         grid-template-columns: 1fr;
       }
 
-      .bottom-row {
-        grid-template-columns: 1fr;
+      .device-card {
+        min-height: auto;
       }
 
-      .radar-panel {
-        min-height: auto;
+      .top-grid {
+        grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 620px) {
+    @media (max-width: 720px) {
       body {
         padding: 16px;
       }
 
-      .brand h1 {
-        font-size: 1.55rem;
-      }
-
-      .logo {
-        width: 52px;
-        height: 52px;
-      }
-
-      .status-title {
-        font-size: 2.45rem;
-      }
-
-      .rssi-value {
-        font-size: 2.3rem;
-      }
-
-      .cards {
+      .bottom-grid {
         grid-template-columns: 1fr;
       }
 
-      .radar {
-        width: 260px;
+      .live-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .device-card,
+      .metric-card,
+      .system-card,
+      .small-card,
+      .dark-card {
+        border-radius: 24px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="page">
-    <header class="header">
-      <div class="brand">
-        <div class="logo">SF</div>
-        <div>
-          <h1>SmartFinder Radar</h1>
-          <p>Realtime tracking dashboard</p>
-        </div>
-      </div>
-
-      <div class="connection-badge">
-        <span class="live-dot" id="liveDot"></span>
-        <span id="liveText">Memuat Data</span>
-      </div>
-    </header>
-
-    <main class="dashboard">
-      <section class="panel radar-panel">
-        <div>
-          <div class="section-label">Current Status</div>
-
-          <div class="status-main">
-            <h2 class="status-title" id="statusTitle">--</h2>
-            <div class="status-chip" id="statusChip">Waiting</div>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <section class="device-card">
+        <div class="hero-box">
+          <div class="status-chip">
+            <span class="chip-dot" id="chipDot"></span>
+            <span id="chipStatus">Offline</span>
           </div>
 
-          <p class="status-desc" id="statusDesc">
-            Dashboard sedang mengambil data terbaru dari receiver SmartFinder.
-          </p>
+          <div class="hero-content">
+            <div class="hero-title">SmartFinder</div>
+            <div class="hero-subtitle">Tag Monitoring</div>
+          </div>
         </div>
 
-        <div class="radar">
-          <div class="target-dot" id="targetDot"></div>
+        <div class="device-info">
+          <div class="info-line">
+            <span>Device ID</span>
+            <strong>SF-ESP32-01</strong>
+          </div>
+          <div class="info-line">
+            <span>Source</span>
+            <strong>Blynk Cloud</strong>
+          </div>
+          <div class="info-line">
+            <span>Last Update</span>
+            <strong id="sideUpdate">--</strong>
+          </div>
+          <div class="info-line">
+            <span>Status</span>
+            <strong id="sideStatus">Waiting</strong>
+          </div>
         </div>
       </section>
 
-      <section class="panel info-panel">
-        <div class="section-label">Signal Monitor</div>
+      <section class="dark-card">
+        <div class="dark-title">RSSI Signal</div>
+        <div class="dark-value" id="darkRssi">-- <span>dBm</span></div>
+        <div class="dark-meter">
+          <div class="dark-meter-fill" id="darkMeter"></div>
+        </div>
+      </section>
+    </aside>
 
-        <div class="rssi-card">
-          <div class="rssi-top">
-            <div>
-              <div class="rssi-value" id="rssiValue">-- <span>dBm</span></div>
+    <main class="main">
+      <section class="top-grid">
+        <div class="metric-card">
+          <div class="metric-head">
+            <div class="metric-title">Signal Strength</div>
+            <div class="icon-btn">↗</div>
+          </div>
+
+          <div class="rssi-large" id="mainRssi">-- <span>dBm</span></div>
+
+          <div class="bar-box">
+            <div class="bar-top">
+              <span id="signalText">Belum terbaca</span>
+              <span class="percent-text" id="signalPercent">--%</span>
             </div>
-            <div class="rssi-note" id="rssiNote">Belum terbaca</div>
+
+            <div class="signal-track">
+              <div class="signal-fill" id="signalFill"></div>
+            </div>
+
+            <div class="scale">
+              <span>Lemah</span>
+              <span>Sedang</span>
+              <span>Kuat</span>
+            </div>
           </div>
 
-          <div class="signal-bar">
-            <div class="signal-fill" id="signalFill"></div>
-          </div>
-
-          <div class="signal-scale">
-            <span>Lemah</span>
-            <span>Sedang</span>
-            <span>Kuat</span>
+          <div class="bars">
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" style="height: 26%;"></div></div>
+              <div class="bar-label">Min</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" style="height: 45%;"></div></div>
+              <div class="bar-label">Avg</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" id="liveBar" style="height: 35%;"></div></div>
+              <div class="bar-label">Live</div>
+            </div>
+            <div class="bar-wrap">
+              <div class="bar-bg"><div class="bar" style="height: 62%;"></div></div>
+              <div class="bar-label">Max</div>
+            </div>
           </div>
         </div>
 
-        <div class="cards">
-          <div class="data-card">
-            <h3>Packet</h3>
-            <div class="data-value" id="packetValue">0</div>
-            <p>Total paket data yang diterima dari tag.</p>
+        <div class="metric-card percent-card">
+          <div class="metric-head">
+            <div class="metric-title">Signal Percentage</div>
+            <div class="icon-btn">↗</div>
           </div>
 
-          <div class="data-card">
-            <h3>Last Seen</h3>
-            <div class="data-value" id="lastSeenValue">--</div>
-            <p>Waktu sejak data terakhir masuk.</p>
-          </div>
-
-          <div class="data-card">
-            <h3>Packet Loss</h3>
-            <div class="data-value" id="lossValue">--</div>
-            <p>Jumlah paket data yang terlewat.</p>
-          </div>
-
-          <div class="data-card">
-            <h3>Last Update</h3>
-            <div class="data-value" id="updateValue">--:--</div>
-            <p>Waktu pembaruan terakhir dashboard.</p>
+          <div class="percent-main">
+            <div class="percent-box" id="percentBox">
+              <div class="percent-box-inner">
+                <div class="percent-number" id="percentNumber">--</div>
+                <div class="percent-label">Signal Index</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
+
+      <section class="system-card">
+        <div class="system-top">
+          <div class="tab">Live Monitor</div>
+          <div class="system-title">System Status</div>
+          <div class="alert-text" id="alertText">Alerts</div>
+        </div>
+
+        <div class="live-panel">
+          <div class="signal-icon" id="signalIcon">⌁</div>
+
+          <div class="live-main">
+            <h2 id="statusTitle">Menunggu Data</h2>
+            <p id="statusDesc">
+              Dashboard sedang mengambil data terbaru dari receiver SmartFinder.
+            </p>
+          </div>
+
+          <div class="avatar-stack">
+            <div class="avatar">SF</div>
+            <div class="avatar">B</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="bottom-grid">
+        <div class="small-card">
+          <div class="small-title">Packet</div>
+          <div class="small-value" id="packetValue">0</div>
+          <div class="small-desc">Jumlah paket yang diterima dari tag.</div>
+        </div>
+
+        <div class="small-card">
+          <div class="small-title">Last Seen</div>
+          <div class="small-value" id="lastSeenValue">--</div>
+          <div class="small-desc">Waktu sejak data terakhir masuk.</div>
+        </div>
+
+        <div class="small-card">
+          <div class="small-title">Packet Loss</div>
+          <div class="small-value" id="lossValue">--</div>
+          <div class="small-desc">Paket data yang terlewat.</div>
+        </div>
+      </section>
+
+      <div class="footer">SmartFinder v1.0</div>
     </main>
-
-    <section class="bottom-row">
-      <div class="panel mini-panel">
-        <div class="mini-title">Connection</div>
-        <div class="mini-value" id="connectionValue">Menunggu</div>
-        <div class="mini-desc" id="connectionDesc">
-          Menunggu data dari receiver.
-        </div>
-      </div>
-
-      <div class="panel mini-panel">
-        <div class="mini-title">Distance Area</div>
-        <div class="mini-value" id="distanceValue">-</div>
-        <div class="mini-desc" id="distanceDesc">
-          Estimasi jarak berdasarkan kekuatan sinyal RSSI.
-        </div>
-      </div>
-
-      <div class="panel mini-panel">
-        <div class="mini-title">System</div>
-        <div class="mini-value">Auto Refresh</div>
-        <div class="mini-desc">
-          Dashboard memperbarui data otomatis setiap 2 detik.
-        </div>
-      </div>
-    </section>
   </div>
 
   <script>
     const API_URL = "https://smartfinder-blynk-link.kruzz-smartfinder.workers.dev/api/latest";
 
-    const liveDot = document.getElementById("liveDot");
-    const liveText = document.getElementById("liveText");
-    const statusTitle = document.getElementById("statusTitle");
-    const statusChip = document.getElementById("statusChip");
-    const statusDesc = document.getElementById("statusDesc");
-    const targetDot = document.getElementById("targetDot");
-    const rssiValue = document.getElementById("rssiValue");
-    const rssiNote = document.getElementById("rssiNote");
+    const chipDot = document.getElementById("chipDot");
+    const chipStatus = document.getElementById("chipStatus");
+    const sideUpdate = document.getElementById("sideUpdate");
+    const sideStatus = document.getElementById("sideStatus");
+    const darkRssi = document.getElementById("darkRssi");
+    const darkMeter = document.getElementById("darkMeter");
+    const mainRssi = document.getElementById("mainRssi");
+    const signalText = document.getElementById("signalText");
+    const signalPercent = document.getElementById("signalPercent");
     const signalFill = document.getElementById("signalFill");
+    const liveBar = document.getElementById("liveBar");
+    const percentBox = document.getElementById("percentBox");
+    const percentNumber = document.getElementById("percentNumber");
+    const alertText = document.getElementById("alertText");
+    const signalIcon = document.getElementById("signalIcon");
+    const statusTitle = document.getElementById("statusTitle");
+    const statusDesc = document.getElementById("statusDesc");
     const packetValue = document.getElementById("packetValue");
     const lastSeenValue = document.getElementById("lastSeenValue");
     const lossValue = document.getElementById("lossValue");
-    const updateValue = document.getElementById("updateValue");
-    const connectionValue = document.getElementById("connectionValue");
-    const connectionDesc = document.getElementById("connectionDesc");
-    const distanceValue = document.getElementById("distanceValue");
-    const distanceDesc = document.getElementById("distanceDesc");
 
     function formatLastSeen(ms) {
       const n = Number(ms || 0);
@@ -569,12 +783,12 @@
 
     function rssiPercent(rssi) {
       let p = ((Number(rssi) + 100) / 60) * 100;
-      if (p < 5) p = 5;
+      if (p < 4) p = 4;
       if (p > 100) p = 100;
       return Math.round(p);
     }
 
-    function rssiLabel(rssi) {
+    function signalLabel(rssi) {
       const n = Number(rssi);
       if (n >= -60) return "Sinyal kuat";
       if (n >= -75) return "Sinyal sedang";
@@ -582,92 +796,73 @@
       return "Sinyal sangat lemah";
     }
 
-    function resetStatusClass() {
-      statusTitle.className = "status-title";
-      connectionValue.className = "mini-value";
-      distanceValue.className = "mini-value";
-    }
-
-    function setDotPosition(status) {
-      const s = String(status || "").toUpperCase();
-
-      if (s === "DEKAT") {
-        targetDot.style.left = "55%";
-        targetDot.style.top = "45%";
-      } else if (s === "SEDANG") {
-        targetDot.style.left = "70%";
-        targetDot.style.top = "34%";
-      } else if (s === "JAUH") {
-        targetDot.style.left = "82%";
-        targetDot.style.top = "24%";
-      } else {
-        targetDot.style.left = "92%";
-        targetDot.style.top = "16%";
-      }
-    }
-
-    function applyStatus(status) {
+    function setStatus(status) {
       const s = String(status || "LOST").toUpperCase();
-      resetStatusClass();
-      setDotPosition(s);
+
+      chipStatus.className = "";
+      sideStatus.className = "";
+      statusTitle.className = "";
 
       if (s === "DEKAT") {
-        statusTitle.textContent = "DEKAT";
-        statusTitle.classList.add("status-dekat");
-        statusChip.textContent = "Tag Dekat";
-        statusDesc.textContent = "Tag berada dekat dengan receiver dan mudah ditemukan.";
-        liveText.textContent = "Online";
-        liveDot.style.background = "#4ade80";
-        targetDot.style.background = "#4ade80";
-        connectionValue.textContent = "Stabil";
-        connectionValue.classList.add("status-dekat");
-        connectionDesc.textContent = "Data dari tag diterima dengan baik.";
-        distanceValue.textContent = "Area Dekat";
-        distanceValue.classList.add("status-dekat");
-        distanceDesc.textContent = "Tag diperkirakan berada di sekitar receiver.";
+        chipStatus.textContent = "Online";
+        sideStatus.textContent = "Dekat";
+        sideStatus.classList.add("text-green");
+        statusTitle.textContent = "Tag Terdeteksi Dekat";
+        statusTitle.classList.add("text-green");
+        statusDesc.textContent = "Tag berada dekat dengan receiver. Posisi barang mudah ditemukan.";
+        chipDot.style.background = "#38b76b";
+        signalIcon.textContent = "●";
+        alertText.textContent = "Normal";
       } else if (s === "SEDANG") {
-        statusTitle.textContent = "SEDANG";
-        statusTitle.classList.add("status-sedang");
-        statusChip.textContent = "Tag Terpantau";
-        statusDesc.textContent = "Tag masih terdeteksi, tetapi jaraknya mulai menjauh.";
-        liveText.textContent = "Online";
-        liveDot.style.background = "#facc15";
-        targetDot.style.background = "#facc15";
-        connectionValue.textContent = "Cukup";
-        connectionValue.classList.add("status-sedang");
-        connectionDesc.textContent = "Data masih masuk dengan kekuatan sinyal sedang.";
-        distanceValue.textContent = "Area Sedang";
-        distanceValue.classList.add("status-sedang");
-        distanceDesc.textContent = "Tag berada pada jarak menengah dari receiver.";
+        chipStatus.textContent = "Online";
+        sideStatus.textContent = "Sedang";
+        sideStatus.classList.add("text-yellow");
+        statusTitle.textContent = "Tag Masih Terpantau";
+        statusTitle.classList.add("text-yellow");
+        statusDesc.textContent = "Tag masih terdeteksi dengan cukup baik, namun jaraknya mulai menjauh.";
+        chipDot.style.background = "#f2bd42";
+        signalIcon.textContent = "◐";
+        alertText.textContent = "Monitor";
       } else if (s === "JAUH") {
-        statusTitle.textContent = "JAUH";
-        statusTitle.classList.add("status-jauh");
-        statusChip.textContent = "Sinyal Lemah";
-        statusDesc.textContent = "Tag masih terhubung, tetapi sinyal sudah melemah.";
-        liveText.textContent = "Online";
-        liveDot.style.background = "#fb923c";
-        targetDot.style.background = "#fb923c";
-        connectionValue.textContent = "Lemah";
-        connectionValue.classList.add("status-jauh");
-        connectionDesc.textContent = "Data masih masuk, namun sinyal mulai lemah.";
-        distanceValue.textContent = "Area Jauh";
-        distanceValue.classList.add("status-jauh");
-        distanceDesc.textContent = "Tag diperkirakan cukup jauh atau terhalang objek.";
+        chipStatus.textContent = "Online";
+        sideStatus.textContent = "Jauh";
+        sideStatus.classList.add("text-orange");
+        statusTitle.textContent = "Sinyal Tag Lemah";
+        statusTitle.classList.add("text-orange");
+        statusDesc.textContent = "Tag masih terhubung, tetapi sinyal melemah. Periksa area sekitar receiver.";
+        chipDot.style.background = "#f08c36";
+        signalIcon.textContent = "◌";
+        alertText.textContent = "Weak Signal";
       } else {
-        statusTitle.textContent = "LOST";
-        statusTitle.classList.add("status-lost");
-        statusChip.textContent = "Tidak Terhubung";
-        statusDesc.textContent = "Tag tidak terdeteksi atau berada di luar jangkauan.";
-        liveText.textContent = "Offline";
-        liveDot.style.background = "#fb7185";
-        targetDot.style.background = "#fb7185";
-        connectionValue.textContent = "Terputus";
-        connectionValue.classList.add("status-lost");
-        connectionDesc.textContent = "Receiver belum menerima data terbaru dari tag.";
-        distanceValue.textContent = "Tidak Terhubung";
-        distanceValue.classList.add("status-lost");
-        distanceDesc.textContent = "Tag berada di luar jangkauan atau sinyal terhalang kuat.";
+        chipStatus.textContent = "Offline";
+        sideStatus.textContent = "Lost";
+        sideStatus.classList.add("text-red");
+        statusTitle.textContent = "Koneksi Terputus";
+        statusTitle.classList.add("text-red");
+        statusDesc.textContent = "Tidak dapat terhubung ke alat. Periksa koneksi WiFi atau posisi tag.";
+        chipDot.style.background = "#e84d4d";
+        signalIcon.textContent = "⌁";
+        alertText.textContent = "Disconnected";
       }
+    }
+
+    function setSignal(rssi) {
+      const value = Number(rssi);
+      const p = rssiPercent(value);
+
+      darkRssi.innerHTML = `${value} <span>dBm</span>`;
+      mainRssi.innerHTML = `${value} <span>dBm</span>`;
+
+      darkMeter.style.width = p + "%";
+      signalFill.style.width = p + "%";
+      liveBar.style.height = p + "%";
+
+      signalPercent.textContent = p + "%";
+      signalText.textContent = signalLabel(value);
+
+      percentNumber.textContent = p + "%";
+      percentBox.style.setProperty("--signal-height", p + "%");
+      percentBox.style.background = `linear-gradient(180deg, #f4f4f4 0%, #f4f4f4 ${100 - p}%, rgba(56,183,107,0.38) ${100 - p}%, rgba(56,183,107,0.72) 100%)`;
     }
 
     async function loadData() {
@@ -677,38 +872,42 @@
         const d = json.data || json;
 
         const status = d.status || d.V0 || "LOST";
-        const rssi = Number(d.rssi ?? d.V1 ?? -100);
+        const rssi = d.rssi ?? d.V1 ?? -100;
         const packet = d.packet ?? d.V2 ?? 0;
         const lastSeen = d.last_seen_ms ?? d.lastSeen ?? d.V3 ?? 0;
         const loss = d.packet_loss ?? d.loss ?? d.V4 ?? 0;
 
-        const percent = rssiPercent(rssi);
-
-        applyStatus(status);
-
-        rssiValue.innerHTML = `${rssi} <span>dBm</span>`;
-        rssiNote.textContent = rssiLabel(rssi);
-        signalFill.style.width = percent + "%";
+        setStatus(status);
+        setSignal(rssi);
 
         packetValue.textContent = packet;
         lastSeenValue.textContent = formatLastSeen(lastSeen);
         lossValue.textContent = loss;
 
-        updateValue.textContent = new Date().toLocaleTimeString("id-ID", {
+        const time = new Date().toLocaleTimeString("id-ID", {
           hour: "2-digit",
           minute: "2-digit",
           second: "2-digit"
         });
+
+        sideUpdate.textContent = time;
       } catch (err) {
         console.log(err);
-        applyStatus("LOST");
-        rssiValue.innerHTML = `-- <span>dBm</span>`;
-        rssiNote.textContent = "Gagal mengambil data";
-        signalFill.style.width = "5%";
+        setStatus("LOST");
+
+        darkRssi.innerHTML = `-- <span>dBm</span>`;
+        mainRssi.innerHTML = `-- <span>dBm</span>`;
+        signalPercent.textContent = "--%";
+        signalText.textContent = "Gagal mengambil data";
+        signalFill.style.width = "4%";
+        darkMeter.style.width = "4%";
+        liveBar.style.height = "4%";
+
+        percentNumber.textContent = "--";
         packetValue.textContent = "0";
         lastSeenValue.textContent = "--";
         lossValue.textContent = "--";
-        updateValue.textContent = "--:--";
+        sideUpdate.textContent = "--";
       }
     }
 
